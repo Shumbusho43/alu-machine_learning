@@ -1,15 +1,11 @@
 #!/usr/bin/env python3
-'''
-    Function def np_elementwise(mat1, mat2)
-    performs element-wise addition,
-    subtraction, multiplication, and division:
-'''
+"""
+Bracing the elements
+"""
 
 
 def np_elementwise(mat1, mat2):
-    '''
-       	Function def np_elementwise(mat1, mat2)
-        that performs element-wise addition,
-        subtraction, multiplication, and division:
-    '''
+    """
+    Adds, subtracts, multiplies, and divides two matrices element-wise
+    """
     return (mat1 + mat2, mat1 - mat2, mat1 * mat2, mat1 / mat2)
