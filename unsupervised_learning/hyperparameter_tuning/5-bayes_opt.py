@@ -73,7 +73,10 @@ class BayesianOptimization:
         Returns: X_opt, Y_opt
         """
         for _ in range(iterations):
-            X_next, _ = self.acquisition()
+            X_next, EI = self.acquisition()
+
+            if np.max(EI) <= 0:
+                break
 
             if np.any(np.all(self.gp.X == X_next, axis=1)):
                 break
