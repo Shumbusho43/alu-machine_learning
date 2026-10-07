@@ -72,16 +72,23 @@ class BayesianOptimization:
 
         Returns: X_opt, Y_opt
         """
-        for i in range(iterations):
-            X_next, _ = self.acquisition()
+        for _ in range(iterations):
+            X_next, EI = self.acquisition()
 
-            if X_next in self.gp.X:
+            if np.max(EI) <= 0:
                 break
 
-            Y = self.f(X_next)
-            self.gp.update(X_next, Y)
+            if np.any(np.all(self.gp.X == X_next, axis=1)):
+                break
 
-        idx = np.argmin(self.gp.Y)
+            Y_next = self.f(X_next)
+            self.gp.update(X_next, Y_next)
+
+        if self.minimize:
+            idx = np.argmin(self.gp.Y)
+        else:
+            idx = np.argmax(self.gp.Y)
+
         X_opt = self.gp.X[idx]
         Y_opt = np.array(self.gp.Y[idx])
         return X_opt, Y_opt
